@@ -9,13 +9,8 @@ db = cluster['test']
 collections = db['rooms']
 
 
-@app.route("/")
-def home():
-    print("funciona aqui também")
-    return "funciona!"
 
-
-@app.route("/rooms", methods= ["GET"])
+@app.route("/rooms/", methods= ["GET"])
 def rooms():
     """ GET ALL """
     all_rooms = collections.find()
