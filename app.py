@@ -1,7 +1,10 @@
 from flask import Flask, jsonify, render_template, request
+from flask_cors import CORS
 from pymongo import MongoClient
 
 app = Flask(__name__)
+
+CORS(app, origins='*')
 
 """ CONECTAR AO BANCO """
 cluster = MongoClient("mongodb+srv://pedroluiz:tez15kmClQy3m1fi@cluster0.wtvlihm.mongodb.net/?retryWrites=true&w=majority")
