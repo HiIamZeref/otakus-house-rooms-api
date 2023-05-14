@@ -23,6 +23,7 @@ def rooms():
     for room in all_rooms:
         response_list.append(
             {
+            "_id": str(room['_id']),
             "id": room['id'],
             "name": room['name'],
             "image": room['image'],
@@ -40,6 +41,7 @@ def get_unique_room(id):
     """ GET ONE """
     room = collections.find_one({"id": id})
     room_json = {
+        "_id": str(room['_id']),
         "id": room['id'],
         "name": room['name'],
         "image": room['image'],
