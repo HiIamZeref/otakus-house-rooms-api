@@ -54,6 +54,26 @@ def get_unique_room(id):
     return jsonify(room_json)
 
 
+@app.route("/admin/rooms/", methods= ["POST"])
+def add_room():
+    room_json = {
+        "id": request.args.get('id'),
+        "name": request.args.get('name'),
+        "owner": request.args.get('owner'),
+        "image": request.args.get('image'),
+        "description": request.args.get('description'),
+        "price": request.args.get('price'),
+        "rating": request.args.get('rating'),
+        "date": request.args.get('date'),
+    }
+
+    collections.insert_one(room_json)
+
+    return "Inserido com sucesso."
+
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
