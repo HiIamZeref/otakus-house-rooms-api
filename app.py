@@ -59,7 +59,7 @@ def get_unique_room(id):
 @app.route("/admin/rooms/", methods= ["POST"])
 def add_room():
     room_json = {
-        "id": request.args.get('id'),
+        "id": int(request.args.get('id')),
         "name": request.args.get('name'),
         "owner": request.args.get('owner'),
         "image": request.args.get('image'),
@@ -72,6 +72,17 @@ def add_room():
     collections.insert_one(room_json)
 
     return "Inserido com sucesso."
+
+
+@app.route("/admin/rooms/<int:id>", methods= ["DELETE"])
+def delete_rooms(id):
+    query = {
+        "id": id
+    }
+
+    collections.delete_one(query)
+
+    return "Excluído com sucesso."
 
 
 
