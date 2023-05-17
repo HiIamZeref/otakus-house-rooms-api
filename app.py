@@ -65,7 +65,7 @@ def add_room():
         "image": request.args.get('image'),
         "description": request.args.get('description'),
         "price": request.args.get('price'),
-        "rating": request.args.get('rating'),
+        "rating": float(request.args.get('rating')),
         "date": request.args.get('date'),
     }
 
@@ -74,15 +74,25 @@ def add_room():
     return "Inserido com sucesso."
 
 
-@app.route("/admin/rooms/<int:id>", methods= ["DELETE"])
-def delete_rooms(id):
-    query = {
-        "id": id
-    }
+@app.route("/admin/rooms/<int:id>", methods= ["PUT", "DELETE"])
+def alter_rooms(id):
+    if request.method == "PUT":
+        query = { "id": id }
+        newvalues = { "$set": request.args }
 
-    collections.delete_one(query)
+        collections.update_one( query, newvalues)
 
-    return "Excluído com sucesso."
+        return "Atualizado com sucesso."
+
+
+    elif request.method == "DELETE":
+        query = {
+            "id": id
+        }
+
+        collections.delete_one(query)
+
+        return "Excluído com sucesso."
 
 
 
